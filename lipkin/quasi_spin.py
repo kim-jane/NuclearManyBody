@@ -113,3 +113,14 @@ class QuasiSpin(LipkinModel):
         else:
             r = np.exp(1j*np.pi*K0)
             return r.imag*1j
+            
+
+    def get_state_labels(self):
+    
+        state_labels = []
+        
+        for mb_state in self.mb_states:
+            
+            state_labels.append('(K, K0, r)='+str(mb_state))
+
+        return state_labels

@@ -1,6 +1,7 @@
 from lipkin.quasi_spin import QuasiSpin
 from lipkin.config_int import ConfigurationInteraction
 from tools.display import display_hamiltonian, display_eigvals, display_sp_states, display_mb_states
+from im_time import ImaginaryTime
 
 
 # eigenvalues of LM hamiltonian for large half-filled system
@@ -54,3 +55,25 @@ CI.construct_hamiltonian()
 
 display_hamiltonian(CI.H)
 display_eigvals(CI.eigvals)
+
+# plot imaginary-time propagation to ground state for small system
+T = 10.0
+dt = 0.01
+IT = ImaginaryTime(T, dt)
+
+
+Omega = 2
+N = 2
+QS = QuasiSpin(epsilon, V, Omega, N)
+QS.construct_hamiltonian()
+state_labels = QS.get_state_labels()
+
+ground_state = IT.get_ground_state(QS.H)
+IT.plot_propagation(state_labels, QS.basis_name, 'plot_IT_QS.pdf')
+
+CI = ConfigurationInteraction(epsilon, V, Omega, N)
+CI.construct_hamiltonian()
+state_labels = CI.get_state_labels()
+
+ground_state = IT.get_ground_state(CI.H)
+IT.plot_propagation(state_labels, CI.basis_name, 'plot_IT_CI.pdf')

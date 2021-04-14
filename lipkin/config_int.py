@@ -150,3 +150,13 @@ class ConfigurationInteraction(LipkinModel):
         
         return K
 
+
+    def get_state_labels(self):
+        
+        state_labels = []
+    
+        for mb_state in self.mb_states:
+            
+            state_labels.append('s.p. indices = '+str(mb_state))
+    
+        return state_labels
