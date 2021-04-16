@@ -1,0 +1,87 @@
+============================================================
+LIPKIN MODEL
+	Energy Spacing epsilon = 1.000
+	Interaction Coupling V = 0.100
+	Number of doublets Omega = 10
+	Number of particles N = 10
+	Basis: GCM
+============================================================
+LIPKIN MODEL
+	Energy Spacing epsilon = 1.000
+	Interaction Coupling V = 0.100
+	Number of doublets Omega = 10
+	Number of particles N = 10
+	Basis: GCM
+False
+
+GCM Eigenvalues:
+    -5.24799900
+    -4.53151083
+    -3.53152529
+    -2.41358853
+    -1.22282497
+    -0.00000000
+     1.23008540
+     2.41358853
+     3.34337911
+     4.53151083
+     5.76222866
+
+
+============================================================
+LIPKIN MODEL
+	Energy Spacing epsilon = 1.000
+	Interaction Coupling V = 0.100
+	Number of doublets Omega = 10
+	Number of particles N = 10
+	Basis: quasi-spin
+
+Exact Eigenvalues:
+    -5.24799860
+    -4.53151083
+    -4.14578042
+    -3.53152247
+    -3.30479340
+    -3.07550461
+    -2.41358853
+    -2.27431411
+    -2.14476106
+    -2.02977831
+    -1.22346220
+    -1.15686671
+    -1.09602527
+    -1.04403065
+    -1.00498756
+    -0.00000000
+    -0.00000000
+    -0.00000000
+     0.00000000
+     0.00000000
+     0.00000000
+     1.00498756
+     1.04403065
+     1.09602527
+     1.15686671
+     1.22346220
+     2.02977831
+     2.14476106
+     2.27431411
+     2.41358853
+     3.07550461
+     3.30479340
+     3.53152247
+     4.14578042
+     4.53151083
+     5.24799860
+
+
+False
+False
+False
+False
+False
+False
+False
+False
+False
+False

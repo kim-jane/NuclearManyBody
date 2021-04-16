@@ -51,9 +51,12 @@ class QuasiSpin(LipkinModel):
         
         self.H = np.zeros((self.num_mb_states, self.num_mb_states))
         self.eigvals = []
+        self.blocked_eigvals = []
         
         for (K, r) in self.blocks:
             self.construct_block(K, r)
+            
+        self.eigvals = np.sort(self.eigvals)
 
         
     def construct_block(self, K, r):
@@ -80,7 +83,8 @@ class QuasiSpin(LipkinModel):
                 block[j,i] = block[i,j]
         
         self.H[k:k+N, k:k+N] = block
-        self.eigvals += list(np.sort(np.linalg.eigvals(block)))
+        self.blocked_eigvals.append(list(np.sort(np.linalg.eigvals(block))))
+        self.eigvals += self.blocked_eigvals[-1]
         
         
     def get_block_index(self, K, r):

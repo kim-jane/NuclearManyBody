@@ -1,7 +1,6 @@
 import numpy as np
 from lipkin.lipkin_model import LipkinModel
 
-# for N=Omega=even only
 class HartreeFock(LipkinModel):
 
     def __init__(self, epsilon, V, Omega):
