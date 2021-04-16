@@ -16,19 +16,21 @@ class GeneratorCoordinateMethod(LipkinModel):
         LipkinModel.__init__(self, epsilon, V, Omega, Omega)
         
         
-    def construct_hamiltonian(self, num_points=500):
+    def construct_hamiltonian(self, num_points=100):
     
         dim = self.Omega+1
         dtheta = 2*np.pi/(num_points-1)
         
-        self.possible_k = [int(-0.5*self.Omega+i) for i in range(dim)]
+        self.possible_k = [-0.5*self.Omega+i for i in range(dim)]
         theta = np.linspace(-np.pi, np.pi, num=num_points)
-        print(theta[1]-theta[0] == dtheta)
     
         # construct hamiltonian
         self.H = np.zeros((dim, dim), dtype=np.complex128)
-        for k1 in self.possible_k:
-            for k2 in self.possible_k:
+        for i in range(dim):
+            for j in range(dim):
+            
+                k1 = self.possible_k[i]
+                k2 = self.possible_k[j]
             
                 # precalculate factors that do not depend on theta
                 factor = (2**(self.Omega-2))*((dtheta)**2)/(np.pi**2)
@@ -38,9 +40,10 @@ class GeneratorCoordinateMethod(LipkinModel):
                 # simple numerical integration
                 for t1 in theta:
                     for t2 in theta:
-                        self.H[k1, k2] += factor*np.exp(1j*(k1*t1-k2*t2))*self.calc_H(t1, t2)
-                        
+                        self.H[i, j] += factor*np.exp(1j*(k1*t1-k2*t2))*self.calc_H(t1, t2)
+        
         self.eigvals, self.eigvecs = np.linalg.eig(self.H)
+        print(self.eigvals)
         self.eigvals = self.eigvals.real
         idx = self.eigvals.argsort()
         self.eigvals = self.eigvals[idx]

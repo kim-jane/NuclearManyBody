@@ -16,9 +16,9 @@ GCM = GeneratorCoordinateMethod(epsilon, V, Omega)
 GCM.display_params()
 GCM.construct_hamiltonian()
 GCM.plot_collective_wavefuncs('plot_GCM_wvfuncs.pdf')
-GCM.plot_collective_wavefuncs('plot_GCM_wvfuncs_polar.pdf', polar=True)
-GCM.plot_collective_wavefuncs('plot_GCM_wvfuncs_square.pdf', square=True)
-GCM.plot_collective_wavefuncs('plot_GCM_wvfuncs_square_polar.pdf', square=True, polar=True)
+#GCM.plot_collective_wavefuncs('plot_GCM_wvfuncs_polar.pdf', polar=True)
+#GCM.plot_collective_wavefuncs('plot_GCM_wvfuncs_square.pdf', square=True)
+#GCM.plot_collective_wavefuncs('plot_GCM_wvfuncs_square_polar.pdf', square=True, polar=True)
 
 print("\nGCM ", end='')
 display_eigvals(GCM.eigvals)
@@ -30,7 +30,7 @@ QS.construct_hamiltonian()
 print("\nExact ", end='')
 display_eigvals(np.sort(QS.eigvals))
 
-
+'''
 # collect data for plot
 V = np.linspace(0, 0.5, num=10)
 chi = []
@@ -86,3 +86,4 @@ plt.ylim(E_GCM.min()-0.1, E_GCM.max()+0.1)
 plt.grid(alpha=0.2)
 plt.legend()
 plt.savefig('plot_GCM_all_energies.pdf', format='pdf')
+'''
