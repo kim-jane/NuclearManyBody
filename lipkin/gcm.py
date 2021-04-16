@@ -3,6 +3,7 @@ from lipkin.lipkin_model import LipkinModel
 import scipy.special
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
+from tools.display import display_hamiltonian
 
 class GeneratorCoordinateMethod(LipkinModel):
 
@@ -16,12 +17,12 @@ class GeneratorCoordinateMethod(LipkinModel):
         LipkinModel.__init__(self, epsilon, V, Omega, Omega)
         
         
-    def construct_hamiltonian(self, num_points=100):
+    def construct_hamiltonian(self, num_points=500):
     
         dim = self.Omega+1
         dtheta = 2*np.pi/(num_points-1)
         
-        self.possible_k = [-0.5*self.Omega+i for i in range(dim)]
+        self.possible_k = np.array([-0.5*self.Omega+i for i in range(dim)])
         theta = np.linspace(-np.pi, np.pi, num=num_points)
     
         # construct hamiltonian
@@ -43,16 +44,17 @@ class GeneratorCoordinateMethod(LipkinModel):
                         self.H[i, j] += factor*np.exp(1j*(k1*t1-k2*t2))*self.calc_H(t1, t2)
         
         self.eigvals, self.eigvecs = np.linalg.eig(self.H)
-        print(self.eigvals)
         self.eigvals = self.eigvals.real
         idx = self.eigvals.argsort()
         self.eigvals = self.eigvals[idx]
         self.eigvecs = self.eigvecs[:,idx]
         
         
-    def plot_collective_wavefuncs(self, filename, num_lowest_states=2, square=False, polar=False):
+        
+        
+    def plot_collective_wavefuncs(self, filename, num_lowest_states=3, square=False, polar=False):
     
-        num_points = 100
+        num_points = 200
         t = np.array([-np.pi+i*(2*np.pi/num_points) for i in range(num_points+1)])
         colors = ['b', 'r', 'g']
         states = ['Ground State', '1st Excited State', '2nd Excited State']
@@ -60,15 +62,15 @@ class GeneratorCoordinateMethod(LipkinModel):
             print('Add more colors and state labels. ')
     
         if polar:
-            fig, ax = plt.subplots(subplot_kw={'projection': 'polar'})
+            fig, ax = plt.subplots(figsize=(10,8), subplot_kw={'projection': 'polar'})
         else:
-            fig, ax = plt.subplots()
+            fig, ax = plt.subplots(figsize=(10,8))
             plt.grid(alpha=0.2)
         
 
         for i in range(num_lowest_states):
             
-            g = self.eigvecs[i]
+            g = self.eigvecs[:,i]
             E = self.eigvals[i]
             
             collective = np.zeros(num_points+1, dtype=np.complex128)
@@ -97,7 +99,7 @@ class GeneratorCoordinateMethod(LipkinModel):
         
         if polar:
             plt.yticks([-1,0,1], [-1, 0, 1])
-            plt.legend(bbox_to_anchor=(0.5, 0.2), loc='upper left')
+            plt.legend(bbox_to_anchor=(0.8, 0.1), loc='upper left')
         else:
             plt.legend()
         plt.savefig(filename, format='pdf')
@@ -105,10 +107,12 @@ class GeneratorCoordinateMethod(LipkinModel):
 
 
     def calc_H(self, theta1, theta2):
+    
+        err = 1E-8
         
-        H = (1+(np.sin(0.5*(theta1+theta2)))**2)/(np.cos(0.5*(theta1-theta2)))**2
+        H = (1+(np.sin(0.5*(theta1+theta2)))**2)/((np.cos(0.5*(theta1-theta2)))**2+err)
         H = 0.5*self.chi*(H - 1)
-        H = np.cos(0.5*(theta1+theta2))/np.cos(0.5*(theta1-theta2)) + H
+        H += np.cos(0.5*(theta1+theta2))/(np.cos(0.5*(theta1-theta2))+err)
         
         return -0.5*self.epsilon*self.Omega*H*(np.cos(0.5*(theta1-theta2)))**self.Omega
 

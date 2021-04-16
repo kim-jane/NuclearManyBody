@@ -5,26 +5,18 @@ LIPKIN MODEL
 	Number of doublets Omega = 10
 	Number of particles N = 10
 	Basis: GCM
-============================================================
-LIPKIN MODEL
-	Energy Spacing epsilon = 1.000
-	Interaction Coupling V = 0.100
-	Number of doublets Omega = 10
-	Number of particles N = 10
-	Basis: GCM
-False
 
 GCM Eigenvalues:
-    -5.24799900
-    -4.53151083
-    -3.53152529
-    -2.41358853
-    -1.22282497
-    -0.00000000
-     1.23008540
-     2.41358853
-     3.34337911
-     4.53151083
+    -5.24799892
+    -4.53151076
+    -3.53152524
+    -2.41358850
+    -1.22282495
+    -0.00000003
+     1.23008541
+     2.41358834
+     3.34337903
+     4.53151034
      5.76222866
 
 
@@ -75,13 +67,3 @@ Exact Eigenvalues:
      5.24799860
 
 
-False
-False
-False
-False
-False
-False
-False
-False
-False
-False
